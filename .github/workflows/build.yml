@@ -26,14 +26,14 @@ jobs:
       uses: actions/cache@v3
       with:
         path: ~/.cache/pip
-        key: ${{ runner.os }}-pip-${{ hashFiles('project.toml') }}
+        key: ${{ runner.os }}-pip-${{ hashFiles('pyproject.toml') }}
         restore-keys: |
           ${{ runner.os }}-pip-
 
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install build pytest pytest-cov flake8 black isort
+        pip install build pytest pytest-cov flake8 black isort[colors]
         pip install -e .
 
     - name: Lint with flake8
@@ -127,8 +127,9 @@ jobs:
         WORKDIR /app
 
         # Copy project files
-        COPY project.toml README.md ./
+        COPY pyproject.toml README.md ./
         COPY ai_ops/ ./ai_ops/
+        COPY Forecasting/ ./Forecasting/
 
         # Install the package
         RUN pip install --no-cache-dir -e .

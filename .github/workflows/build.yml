@@ -127,8 +127,9 @@ jobs:
         WORKDIR /app
 
         # Copy project files
-        COPY project.toml README.md ./
+        COPY pyproject.toml README.md ./
         COPY ai_ops/ ./ai_ops/
+        COPY Forecasting/ ./Forecasting/
 
         # Install the package
         RUN pip install --no-cache-dir -e .
